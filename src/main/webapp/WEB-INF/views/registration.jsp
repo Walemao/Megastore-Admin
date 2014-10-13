@@ -44,7 +44,7 @@ body {
 </style>
 </head>
 <body>
-	<c:url var="regUrl" value="registrationform" />
+	<c:url var="regUrl" value="reg" />
 	<form:form action="${regUrl}" method="POST" id="loginForm" modelAttribute="user">
 		<fieldset>
 			<legend>

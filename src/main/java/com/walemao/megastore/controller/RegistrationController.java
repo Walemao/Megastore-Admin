@@ -19,7 +19,7 @@ import com.walemao.megastore.repository.UserAuthorityDao;
 import com.walemao.megastore.service.UserService;
 
 @Controller
-@RequestMapping("registrationform")
+@RequestMapping("reg")
 public class RegistrationController {
 	
 	private Logger logger = LoggerFactory.getLogger(RegistrationController.class);
@@ -54,7 +54,6 @@ public class RegistrationController {
     public @ResponseBody String processRegistration(@ModelAttribute("user") User user,
                     BindingResult result) 
     {
-    	logger.debug("bbababbababab");
 		// set custom Validation by user
 		registrationValidation.validate(user, result);
 		if (result.hasErrors()) 
@@ -66,7 +65,9 @@ public class RegistrationController {
 		
 		UserAuthority author = new UserAuthority();
 		author.setUsername(user.getUsername());
-		author.setAuthority("ROLE_USER");
+		
+		author.setAuthority("ROLE_ADMIN");
+		
 		int id = userService.insert(user);
 		userAuthorityDao.insert(author);
 		return "registrationsuccess" + id;

@@ -54,9 +54,9 @@
 								</tr>
 								<tr>
 									<td><label><i class="icon-time"></i>注册时间：</label></td>
-									<td>><c:out value="${user.createtime}" /></td>
+									<td><c:out value="${user.createTime}" /></td>
 									<td><label><i class="icon-star"></i>用户等级：</label></td>
-									<td>1</td>
+									<td><c:out value="${user.level}" /></td>
 								</tr>
 							</table>
 						</div>

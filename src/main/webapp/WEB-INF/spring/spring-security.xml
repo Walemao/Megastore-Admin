@@ -13,12 +13,17 @@
 	<http pattern="/resources/**" security="none" />
 
 	<!-- 需要Security保护的资源 -->
-	<http entry-point-ref="loginUrlEntryPoint">
-		<intercept-url pattern="/login.**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+	<http>
 		<intercept-url pattern="/admin/login.**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
-		
 
+		<form-login login-page="/admin/login.html" login-processing-url="/admin/login"
+			username-parameter="username" password-parameter="password"
+			default-target-url="/admin/index" always-use-default-target="true"
+			authentication-failure-url="/admin/login.html?error" />
+		<!-- 登出管理 -->
+		<logout logout-url="/admin/logout" logout-success-url="/admin/login.html?logout"
+			delete-cookies="JSESSIONID" invalidate-session="true" />
 		<!-- Header管理 -->
 		<headers>
 			<cache-control /> <!-- XSS -->
@@ -30,14 +35,14 @@
 		<!-- Session策略 -->
 		<session-management session-fixation-protection="migrateSession">
 			<concurrency-control max-sessions="1"
-				error-if-maximum-exceeded="false" expired-url="/login.html" />
+				error-if-maximum-exceeded="false" expired-url="/admin/login.html" />
 		</session-management>
 
 		<!-- Token策略 -->
 		<csrf />
 
 	</http>
-	
+
 	<!-- 盐 -->
 	<beans:bean id="saltSource"
 		class="org.springframework.security.authentication.dao.ReflectionSaltSource">
@@ -48,16 +53,29 @@
 	<beans:bean id="md5" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder">
 	</beans:bean>
 	
+	<beans:bean id = "userDetailsService" class="com.walemao.megastore.domain.Authentication.UsernameJdbcDaoImpl">
+		<beans:property name="dataSource" ref="dataSource"/>
+		<beans:property name="usersByUsernameQuery" 
+			value = "select u_username as username, u_password as password, u_enabled as enabled, u_salt as salt from t_user where u_username = ?"/>
+		<beans:property name="authoritiesByUsernameQuery" value="select username, authority from t_user_authority where username = ?"/>
+	</beans:bean>
+	
 	<!-- userDetailsService获取jdbc数据 -->
-	<jdbc-user-service id="userDetailsService"
+	<!-- <jdbc-user-service id="userDetailsService" 
 				data-source-ref="dataSource"
 				users-by-username-query="select u_username as username, u_password as password, u_enabled as enabled from t_user where u_username = ?"
-				authorities-by-username-query="select username, authority from t_user_authority where username = ?"/>
+				authorities-by-username-query="select username, authority from t_user_authority where username = ?"/> -->
 
 	<beans:bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
-		<!-- <beans:property name="passwordEncoder" ref="md5"></beans:property>
-		<beans:property name="saltSource" ref="saltSource"></beans:property> -->
+		<beans:property name="passwordEncoder" ref="md5"></beans:property>
+		<beans:property name="saltSource" ref="saltSource"></beans:property>
 		<beans:property name="userDetailsService" ref="userDetailsService"></beans:property>
+	</beans:bean>
+	
+	
+	<beans:bean id = "registrationUsernameProvider" class="com.walemao.megastore.domain.Authentication.RegistrationUsernameProvider">
+		<beans:property name="userDetailsService" ref="userDetailsService"></beans:property>
+		<beans:property name="passwordEncoder" ref="md5"></beans:property>
 	</beans:bean>
 	
 	<!-- ======================== AUTHENTICATION ======================= -->

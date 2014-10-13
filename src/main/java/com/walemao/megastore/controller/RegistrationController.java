@@ -1,6 +1,5 @@
 package com.walemao.megastore.controller;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.walemao.megastore.domain.RegistrationValidation;
 import com.walemao.megastore.domain.User;
-
+import com.walemao.megastore.domain.UserAuthority;
+import com.walemao.megastore.domain.Authentication.RegistrationUsernameProvider;
+import com.walemao.megastore.domain.Authentication.RegistrationValidation;
+import com.walemao.megastore.domain.Authentication.RegistrationValidationImpl;
+import com.walemao.megastore.repository.UserAuthorityDao;
 import com.walemao.megastore.service.UserService;
 
 @Controller
@@ -23,14 +25,19 @@ public class RegistrationController {
 	private Logger logger = LoggerFactory.getLogger(RegistrationController.class);
 	
 	@Autowired
-	private UserService m_userService;
+	private UserService userService;
 	
 	@Autowired
-    private RegistrationValidation registrationValidation;
+	private UserAuthorityDao userAuthorityDao;
 	
+
+    private RegistrationValidation registrationValidation = new RegistrationValidationImpl();
+	
+	@Autowired
+	private RegistrationUsernameProvider provider;
 	
 	public void setRegistrationValidation(
-            @ModelAttribute RegistrationValidation registrationValidation) 
+            @ModelAttribute RegistrationValidationImpl registrationValidation) 
 	{
 		this.registrationValidation = registrationValidation;
 	}
@@ -54,7 +61,14 @@ public class RegistrationController {
 		{
 			return "registrationform";
 		}
-		int id = m_userService.insert(user);
+		user.setPassword(provider.encodePassword(user));
+		user.setSalt(user.getUsername());
+		
+		UserAuthority author = new UserAuthority();
+		author.setUsername(user.getUsername());
+		author.setAuthority("ROLE_USER");
+		int id = userService.insert(user);
+		userAuthorityDao.insert(author);
 		return "registrationsuccess" + id;
     }
 }

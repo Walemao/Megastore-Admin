@@ -22,7 +22,7 @@ import com.walemao.megastore.domain.User;
 import com.walemao.megastore.service.UserService;
 
 @Controller
-public class UserController {
+public class UserController extends BaseController{
 	private Logger logger = LoggerFactory.getLogger(UserController.class);
 	@Autowired
 	private UserService UserService;
@@ -43,13 +43,13 @@ public class UserController {
 	 * */
 	@RequestMapping(value = "/admin/users", method = { RequestMethod.GET })
 	public String getUsers(CurrentPage<User> currentPage,
-			@RequestParam(required = false) String userName,
+			@RequestParam(required = false) String username,
 			@RequestParam(defaultValue = "1") int enabled,
 			HttpServletRequest request) {
 
-		CurrentPage<User> cp = this.UserService.getUsers(userName, enabled);
+		CurrentPage<User> cp = this.UserService.getUsers(username, enabled);
 		logger.debug("打印对象：{}", cp.getPageItems());
-		request.setAttribute("userName", userName);
+		request.setAttribute("username", username);
 		request.setAttribute("curretPage", cp);
 		request.setAttribute("enabled", enabled);
 		return "admin/user/users";
@@ -62,7 +62,8 @@ public class UserController {
 	@RequestMapping(value = "/admin/user/{id}", method = { RequestMethod.GET })
 	public String getUser(@PathVariable("id") int userId,
 			HttpServletRequest request) {
-
+		User user = this.UserService.getUser(userId);
+		request.setAttribute("user", user);
 		return "admin/user/user";
 	}
 

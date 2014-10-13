@@ -14,7 +14,7 @@
 	<div id="login-container">
 		<div id="login-logo">
 			<a><img alt="logo"
-				src="<c:url value="/resources-admin/images/admin_logo.png"/>" /> </a>
+				src="<c:url value="/resources/images/admin_logo.png"/>" /> </a>
 
 		</div>
 		<div id="login-form">

@@ -34,6 +34,10 @@ public class RegistrationController {
 	
 	@Autowired
 	private RegistrationUsernameProvider provider;
+	
+	@Autowired 
+	private RegistrationValidator usernameValidator;
+	 
 
 	// Display the form on the get request
     @RequestMapping(method = RequestMethod.GET)
@@ -49,7 +53,7 @@ public class RegistrationController {
     {
 		if (result.hasErrors()) 
 		{
-			return "registration";
+			return result.getFieldErrors().toString();
 		}
 		
 		user.setPassword(provider.encodePassword(user));
@@ -68,7 +72,7 @@ public class RegistrationController {
     
     @InitBinder
     protected void initBinder(WebDataBinder binder)
-    {  
-    	binder.setValidator(new RegistrationValidator());
+    {
+    	binder.setValidator(usernameValidator);
     } 
 }

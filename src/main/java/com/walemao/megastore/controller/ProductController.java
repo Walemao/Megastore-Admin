@@ -68,8 +68,8 @@ public class ProductController extends BaseController {
 		request.setAttribute("productType", productType);
 		request.setAttribute("productName", productName);
 		request.setAttribute("curretPage", pb);
-		request.setAttribute("startDate", DateUtil.getDefaultDates().get(0));
-		request.setAttribute("endDate", DateUtil.getDefaultDates().get(1));
+		request.setAttribute("startDate", DateUtil.FormatToF(startDate));
+		request.setAttribute("endDate", DateUtil.FormatToF(endDate));
 		return "admin/product/products";
 	}
 

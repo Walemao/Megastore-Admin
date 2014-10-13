@@ -1,5 +1,6 @@
 package com.walemao.megastore.service.impl;
 
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao userDao;
-	
+
 	@Override
 	public int insert(User user) {
 		// TODO Auto-generated method stub
@@ -22,9 +23,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public CurrentPage<User> getUsers(String username, int enabled) {
+	public CurrentPage<User> getUsers(String username, Date startTime,
+			Date endTime, int enabled) {
 		// TODO Auto-generated method stub
-		return userDao.getUsers(username, enabled);
+		return userDao.getUsers(username, startTime, endTime, enabled);
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.walemao.megastore.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,9 +22,10 @@ import com.walemao.megastore.domain.CurrentPage;
 import com.walemao.megastore.domain.ProductBase;
 import com.walemao.megastore.domain.User;
 import com.walemao.megastore.service.UserService;
+import com.walemao.megastore.util.DateUtil;
 
 @Controller
-public class UserController extends BaseController{
+public class UserController extends BaseController {
 	private Logger logger = LoggerFactory.getLogger(UserController.class);
 	@Autowired
 	private UserService UserService;
@@ -42,16 +45,27 @@ public class UserController extends BaseController{
 	 * 
 	 * */
 	@RequestMapping(value = "/admin/users", method = { RequestMethod.GET })
-	public String getUsers(CurrentPage<User> currentPage,
+	public String getUsers(
+			CurrentPage<User> currentPage,
 			@RequestParam(required = false) String username,
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy/MM/dd") Date startDate,
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy/MM/dd") Date endDate,
 			@RequestParam(defaultValue = "1") int enabled,
 			HttpServletRequest request) {
 
-		CurrentPage<User> cp = this.UserService.getUsers(username, enabled);
+		if (startDate == null || endDate == null) {
+			endDate = new Date(currentDate.getTime() + INTERVAL_TIME);
+			startDate = new Date(currentDate.getTime() - 7 * INTERVAL_TIME);
+		}
+
+		CurrentPage<User> cp = this.UserService.getUsers(username, startDate,
+				new Date(endDate.getTime() + INTERVAL_TIME), enabled);
 		logger.debug("打印对象：{}", cp.getPageItems());
 		request.setAttribute("username", username);
 		request.setAttribute("curretPage", cp);
 		request.setAttribute("enabled", enabled);
+		request.setAttribute("startDate", DateUtil.FormatToF(startDate));
+		request.setAttribute("endDate", DateUtil.FormatToF(endDate));
 		return "admin/user/users";
 	}
 

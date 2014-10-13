@@ -31,16 +31,28 @@
 							type="text" class="form-control" id="username" name="username"
 							placeholder="输入用户" value="<c:out value="${username}"></c:out>">
 					</div>
-					
+
 					<div class="form-group">
-						<label class="control-label" for="enabled">用户状态：</label>
-						 <select class="form-control" name="enabled" id="userStatus">
+						<label class="control-label" for="enabled">用户状态：</label> <select
+							class="form-control" name="enabled" id="userStatus">
 							<option value="1">启用中</option>
 							<option value="0">已禁用</option>
 							<option value="2">所有用户</option>
 						</select>
 					</div>
-					
+
+					<div class="form-group">
+						<label class="control-label">选择时间：</label>
+						<div id="advanced-daterangepicker" class="btn btn-default">
+							<i class="icon-calendar"></i> <span class="daterange"><span
+								class="start-date-span">${startDate}</span> 至 <span
+								class="end-date-span">${endDate}</span></span> <b class="caret"></b> <input
+								id="startDate" type="hidden" name="startDate"
+								value="${startDate}" /> <input id="endDate" type="hidden"
+								name="endDate" value="${endDate}">
+						</div>
+					</div>
+
 					<button type="submit" class="btn btn-success">
 						<i class="icon-search"></i>查询
 					</button>
@@ -70,15 +82,12 @@
 									src="<c:out value="${user.head_portrait}" />" width="60"
 									height="60"></a></td>
 							<td class="content-list"><c:out value="${user.username}" /></td>
-							<td class="content-list">
-							   <c:if test="${user.enabled==true}">
+							<td class="content-list"><c:if test="${user.enabled==true}">
 							      启用中
-							   </c:if>
-							   <c:if test="${user.enabled==false}">
+							   </c:if> <c:if test="${user.enabled==false}">
 							      已禁用
-							   </c:if>
-							</td>
-							
+							   </c:if></td>
+
 							<td class="content-list"><fmt:formatDate
 									value="${user.createTime}" type="date"
 									pattern="yyyy/MM/dd HH:mm:ss" /></td>
@@ -88,17 +97,17 @@
 										data-original-title="查看"
 										href="<c:url value="/admin/user/${user.id}"/>"><i
 										class="icon-info-sign"></i></a>
-								    <c:if test="${user.enabled==true}">
-									<a class="btn btn-xs btn-danger control-user-status"
-										data-id="<c:out value="${user.username}"/>" data-status="0"
-										data-toggle="tooltip" data-original-title="禁用"><i
-										class="icon-remove-sign"></i></a>
+									<c:if test="${user.enabled==true}">
+										<a class="btn btn-xs btn-danger control-user-status"
+											data-id="<c:out value="${user.username}"/>" data-status="0"
+											data-toggle="tooltip" data-original-title="禁用"><i
+											class="icon-remove-sign"></i></a>
 									</c:if>
 									<c:if test="${user.enabled==false}">
-									<a class="btn btn-xs btn-success control-user-status"
-										data-id="<c:out value="${user.username}"/>" data-status="1"
-										data-toggle="tooltip" data-original-title="启用"><i
-										class="icon-ok-sign"></i></a>
+										<a class="btn btn-xs btn-success control-user-status"
+											data-id="<c:out value="${user.username}"/>" data-status="1"
+											data-toggle="tooltip" data-original-title="启用"><i
+											class="icon-ok-sign"></i></a>
 									</c:if>
 								</div>
 							</td>
@@ -138,16 +147,20 @@
 </body>
 <%@ include file="/WEB-INF/views/includes/admin_foot_scripts_links.jspf"%>
 <script type="text/javascript">
-   var select_status = '<c:out value="${enabled}"/>';
-   $('#userStatus').val(select_status);
-   
-   /** 禁用和启用用户 **/
-   $('.control-user-status').click(function() {
+	var select_status = '<c:out value="${enabled}"/>';
+	$('#userStatus').val(select_status);
+
+	/** 禁用和启用用户 **/
+	$('.control-user-status')
+			.click(
+					function() {
 						var status = $(this).attr('data-status');
-						var text = (status = 0)? '启用' : '禁用';
+						var text = (status = 0) ? '启用' : '禁用';
 						if (window.confirm('你确定要' + text + '吗？')) {
 							var username = $(this).attr('data-id');
-							$.post('<c:url value="/admin/user?${_csrf.parameterName}=${_csrf.token}"/>',
+							$
+									.post(
+											'<c:url value="/admin/user?${_csrf.parameterName}=${_csrf.token}"/>',
 											{
 												_method : 'DELETE',
 												username : username,
@@ -156,7 +169,7 @@
 												if (data.status == 'success') {
 													window.location.reload();
 												} else {
-													alert( text + '失败！');
+													alert(text + '失败！');
 												}
 											});
 						}

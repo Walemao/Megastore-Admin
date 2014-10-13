@@ -17,6 +17,7 @@ import com.walemao.megastore.domain.CurrentPage;
 import com.walemao.megastore.domain.Order;
 import com.walemao.megastore.domain.User;
 import com.walemao.megastore.service.OrderService;
+import com.walemao.megastore.util.DateUtil;
 
 @Controller
 public class OrderController extends BaseController{
@@ -37,10 +38,16 @@ public class OrderController extends BaseController{
 			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy/MM/dd") Date endDate,
 			@RequestParam(defaultValue = "0") int mark,
 			HttpServletRequest request) {
-
+		
+		if (startDate == null || endDate == null) {
+			endDate = new Date(currentDate.getTime() + INTERVAL_TIME);
+			startDate = new Date(currentDate.getTime() - 7 * INTERVAL_TIME);
+		}
 		CurrentPage<Order> cp = this.orderService.getAllOrders(parm, startDate, endDate, mark);
 		logger.debug("打印对象：{}", cp.getPageItems());
 		request.setAttribute("curretPage", cp);
+		request.setAttribute("startDate", DateUtil.FormatToF(startDate));
+		request.setAttribute("endDate", DateUtil.FormatToF(endDate));
 		return "admin/order/orders";
 	}
 }

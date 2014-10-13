@@ -82,7 +82,19 @@
 
 			<!-- 用户订单信息 -->
 			<h3 class="page-header">用户订单</h3>
-
+			<div class="tab-content tab-content-default">
+			<table class="table user-base-info-table">
+			<thead>
+					<tr>
+						<th><i class="icon-camera-retro"></i>订单信息</th>
+						<th><i class="icon-user"></i>收货人</th>
+						<th><i class="icon-flag"></i>订单金额</th>
+						<th><i class="icon-time"></i>注册时间</th>
+						<th><i class="icon-bolt"></i>操作</th>
+					</tr>
+				</thead>
+			</table>
+			</div>
 			<!-- 用户收货地址信息 -->
 			<h3 class="page-header">用户收货地址</h3>
 		</div>

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.walemao.megastore.domain.User;
 import com.walemao.megastore.domain.UserAuthority;
 import com.walemao.megastore.domain.Authentication.RegistrationUsernameProvider;
-import com.walemao.megastore.domain.validation.RegistrationValidation;
 import com.walemao.megastore.domain.validation.RegistrationValidator;
 import com.walemao.megastore.repository.UserAuthorityDao;
 import com.walemao.megastore.service.UserService;
@@ -67,7 +66,7 @@ public class RegistrationController {
 		return "registrationsuccess" + id;
     }
     
-    @InitBinder  
+    @InitBinder
     protected void initBinder(WebDataBinder binder)
     {  
     	binder.setValidator(new RegistrationValidator());

@@ -57,6 +57,18 @@
 					<i class="icon-search"></i>查询
 				</button>
 			</form>
+			<table class="table content-list-table">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th><i class="icon-camera-retro"></i>缩略图</th>
+						<th><i class="icon-book"></i>商品名称</th>
+						<th><i class="icon-tag"></i>商品类型</th>
+						<th><i class="icon-time"></i>添加时间</th>
+						<th><i class="icon-bolt"></i>操作</th>
+					</tr>
+				</thead>
+			</table>
 		</div>
 	</div>
 </body>

@@ -1,6 +1,7 @@
 package com.walemao.megastore.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public CurrentPage<Order> getAllOrders(Date startTime, Date endTime,
+	public List<Order> getAllOrders(Date startTime, Date endTime,
 			int orderStatus, String username) {
 		// TODO Auto-generated method stub
 		return orderDao.getOrders(startTime, endTime, orderStatus, username);

@@ -167,29 +167,51 @@ function appendProductColor(thumbnail, name, thummd5, id) {
 }
 
 /**
+ * 日期格式转换
+ * 
+ */
+function dateFormat(date) {
+	var year = date.getFullYear();
+	var month = date.getMonth() + 1;
+	var day = date.getDate();
+	var hour = date.getHours();
+	var minutes = date.getMinutes();
+	var second = date.getSeconds();
+
+	return year + '/' + month + '/' + day + ' ' + hour + ':' + minutes + ':'
+			+ second;
+}
+
+/**
  * 用户订单列表动态生成
  * 
  */
 function appendUserOrders(data, checkUrl) {
-	for ( var i in data.pageItems) {
-		var tr_dom = $('<tr/>');
-		var td_dom1 = $('<td/>').addClass('content-list').text(
-				data.pageItems[i].id);
-		
-		console.log(data.pageItems[i].addressinfo);
-		
-		var address_info = JSON.parse(data.pageItems[i].addressinfo);	
-		var td_dom2 = $('<td/>').addClass('content-list').text(address_info.name);
-		var td_dom3 = $('<td/>').addClass('content-list').text(
-				data.pageItems[i].createtime);
-		var td_dom4 = $('<td/>').addClass('content-list').text(
-				data.pageItems[i].status);
 
-		var td_dom5 = $('<td/>').addClass('content-list').append(
-				$('<a/>').addClass('btn btn-xs btn-info').attr(
-						'href', checkUrl + data.pageItems[i].id).html(
+	for ( var i in data) {
+		var tr_dom = $('<tr/>');
+		var td_dom1 = $('<td/>').text(data[i].id);
+
+		var address_info = JSON.parse(data[i].addressinfo);
+		var td_dom2 = $('<td/>').text(address_info.name);
+
+		var order_date = new Date(data[i].createtime);
+		var td_dom3 = $('<td/>').text(dateFormat(order_date));
+
+		var td_dom4 = $('<td/>').text(data[i].fee + '元');
+		
+		var td_dom5 = $('<td/>').text(data[i].orderStatus);
+
+		var td_dom6 = $('<td/>').append(
+				$('<a/>').addClass('btn btn-xs btn-info').attr('href',
+						checkUrl + data[i].id).html(
 						'<i class="icon-info-sign"></i>查看订单'));
-		tr_dom.append(td_dom1).append(td_dom2).append(td_dom3).append(td_dom4).append(td_dom5);
+
+		tr_dom.append(td_dom1).append(td_dom2).append(td_dom3).append(td_dom4)
+				.append(td_dom5).append(td_dom6);
 		$('.user-orders-tbody').append(tr_dom);
 	}
+	
+	$('#user-orders-table').DataTable({iDisplayLength:6, aLengthMenu:[[6,10,30,-1],[6,10,30,"All"]]});
+	setDataTableSearchInput();
 }

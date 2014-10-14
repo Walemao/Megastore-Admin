@@ -38,6 +38,10 @@ div.page-header {
 	padding-right: 5px;
 }
 
+.dataTable i{
+	padding-right: 5px;
+}
+
 .content-list-table td.content-list {
 	padding-top: 25px;
 }

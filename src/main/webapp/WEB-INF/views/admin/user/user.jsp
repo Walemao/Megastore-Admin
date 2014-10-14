@@ -88,7 +88,7 @@
 					<input type="hidden" name="username" value="${user.username}"/>
 					<div class="form-group">
 						<label class="control-label" for="status">订单状态：</label> <select
-							class="form-control" name="status" id="orderStatus">
+							class="form-control" name="orderStatus" id="orderStatus">
 							<option value="-1">全部状态</option>
 							<option value="0">等待付款</option>
 							<option value="1">等待收货</option>
@@ -116,21 +116,19 @@
 				</form>
 			</div>
 
-			<table class="table content-list-table">
+			<table id="user-orders-table" class="table table-striped table-bordered table-hover dataTable">
 				<thead>
 					<tr>
 						<th><i class="icon-list-ol"></i>订单编号</th>
 						<th><i class="icon-user"></i>收货人</th>
 						<th><i class="icon-time"></i>下单时间</th>
+						<th><i class="icon-money"></i>订单金额</th>
 						<th><i class="icon-lightbulb"></i>订单状态</th>
 						<th><i class="icon-bolt"></i>操作</th>
 					</tr>
 				</thead>
 				<tbody class="user-orders-tbody">
 				</tbody>
-
-				<tfoot class="user-orders-tfoot">
-				</tfoot>
 			</table>
 
 
@@ -146,13 +144,10 @@
 	/** 获取用户订单信息 **/
 	$('.user-order-search-form').submit(function(e){
 		e.preventDefault();
+		$('.user-orders-tbody').html('');
 		var params = $(this).serialize();
 		$.get('<c:url value="/admin/user/orders" />', params, function(data){
-			if(data.pageItems.length == 0){
-				$('.user-orders-tbody').html('<tr><td colspan="5"><span class="no-message">没查到订单！</span></td></tr>');
-			}else{
-				appendUserOrders(data, '<c:url value="/admin/order/" />');
-			}			
+			appendUserOrders(data, '<c:url value="/admin/order/" />');			
 		});		
 	});
 	$('.user-order-search-form').submit();

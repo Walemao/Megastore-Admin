@@ -1,6 +1,7 @@
 package com.walemao.megastore.controller;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -59,8 +60,7 @@ public class OrderController extends BaseController {
 	 * 
 	 * */
 	@RequestMapping(value = "/admin/user/orders", method = RequestMethod.GET)
-	public @ResponseBody CurrentPage<Order> getOrdersByUsername(
-			CurrentPage<Order> currentPage,
+	public @ResponseBody List<Order> getOrdersByUsername(
 			String username,
 			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy/MM/dd") Date startDate,
 			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy/MM/dd") Date endDate,

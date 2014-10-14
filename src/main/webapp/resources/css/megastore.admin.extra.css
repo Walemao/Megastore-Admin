@@ -234,3 +234,7 @@ form.user-order-search-form {
 	margin-bottom: 10px;
 }
 
+#user-orders-table>tbody>tr>td{
+	padding: 8px;
+}
+

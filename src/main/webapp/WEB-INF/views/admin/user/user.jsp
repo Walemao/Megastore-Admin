@@ -75,7 +75,42 @@
 					</div>
 				</div>
 
-				<div class="tab-pane" id="dash-tabs-user-info">asdsdfsdfghh</div>
+				<div class="tab-pane" id="dash-tabs-user-info">
+					<table class="table user-base-info-table">
+						<tr>
+							<td><label><i class="icon-user"></i>昵称：</label></td>
+							<td>aa心跳</td>
+							<td><label><i class="icon-user"></i>真实姓名：</label></td>
+							<td>王小帅</td>
+							<td><label><i class="icon-user"></i>性别：</label></td>
+							<td>男</td>
+						</tr>
+
+						<tr>
+							<td><label><i class="icon-user"></i>生日：</label></td>
+							<td>1990/02/05</td>
+							<td><label><i class="icon-user"></i>是否验证邮箱：</label></td>
+							<td>是</td>
+							<td><label><i class="icon-user"></i>是否验证手机：</label></td>
+							<td>否</td>
+						</tr>
+						
+						<tr>
+							<td><label><i class="icon-user"></i>省份：</label></td>
+							<td>广东省</td>
+							<td><label><i class="icon-user"></i>城市：</label></td>
+							<td>汕头市</td>
+							<td><label><i class="icon-user"></i>地区：</label></td>
+							<td>澄海区</td>
+						</tr>
+						<tr>
+							<td><label><i class="icon-user"></i>详细地址：</label></td>
+							<td colspan="3">文冠路南侧金桂园10幢</td>
+							<td><label><i class="icon-user"></i>邮编：</label></td>
+							<td>519000</td>
+						</tr>
+					</table>
+				</div>
 
 				<div class="tab-pane" id="dash-tabs-user-extra">nmhyrty</div>
 			</div>
@@ -85,7 +120,7 @@
 				用户订单
 				<form action="<c:url value="/admin/user/orders" />" method="get"
 					class="form-inline user-order-search-form" role="form">
-					<input type="hidden" name="username" value="${user.username}"/>
+					<input type="hidden" name="username" value="${user.username}" />
 					<div class="form-group">
 						<label class="control-label" for="status">订单状态：</label> <select
 							class="form-control" name="orderStatus" id="orderStatus">
@@ -116,7 +151,8 @@
 				</form>
 			</div>
 
-			<table id="user-orders-table" class="table table-striped table-bordered table-hover dataTable">
+			<table id="user-orders-table"
+				class="table table-striped table-bordered table-hover dataTable">
 				<thead>
 					<tr>
 						<th><i class="icon-list-ol"></i>订单编号</th>
@@ -142,16 +178,14 @@
 <%@ include file="/WEB-INF/views/includes/admin_foot_scripts_links.jspf"%>
 <script type="text/javascript">
 	/** 获取用户订单信息 **/
-	$('.user-order-search-form').submit(function(e){
+	$('.user-order-search-form').submit(function(e) {
 		e.preventDefault();
 		$('.user-orders-tbody').html('');
 		var params = $(this).serialize();
-		$.get('<c:url value="/admin/user/orders" />', params, function(data){
-			appendUserOrders(data, '<c:url value="/admin/order/" />');			
-		});		
+		$.get('<c:url value="/admin/user/orders" />', params, function(data) {
+			appendUserOrders(data, '<c:url value="/admin/order/" />');
+		});
 	});
 	$('.user-order-search-form').submit();
-	
-	
 </script>
 </html>

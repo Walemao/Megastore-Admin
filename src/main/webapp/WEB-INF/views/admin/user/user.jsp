@@ -81,20 +81,59 @@
 			</div>
 
 			<!-- 用户订单信息 -->
-			<h3 class="page-header">用户订单</h3>
-			<div class="tab-content tab-content-default">
-			<table class="table user-base-info-table">
-			<thead>
+			<div class="page-header" style="margin-top: 50px;">
+				用户订单
+				<form action="<c:url value="/admin/user/orders" />" method="get"
+					class="form-inline user-order-search-form" role="form">
+					<input type="hidden" name="username" value="${user.username}"/>
+					<div class="form-group">
+						<label class="control-label" for="status">订单状态：</label> <select
+							class="form-control" name="status" id="orderStatus">
+							<option value="-1">全部状态</option>
+							<option value="0">等待付款</option>
+							<option value="1">等待收货</option>
+							<option value="2">已完成</option>
+							<option value="3">已取消</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label">选择时间：</label>
+						<div id="advanced-daterangepicker" class="btn btn-default">
+							<i class="icon-calendar"></i> <span class="daterange"><span
+								class="start-date-span">${startDate}</span> 至 <span
+								class="end-date-span">${endDate}</span></span> <b class="caret"></b> <input
+								id="startDate" type="hidden" name="startDate"
+								value="${startDate}" /> <input id="endDate" type="hidden"
+								name="endDate" value="${endDate}">
+						</div>
+					</div>
+
+					<button type="submit" class="btn btn-success">
+						<i class="icon-search"></i>查询
+					</button>
+
+				</form>
+			</div>
+
+			<table class="table content-list-table">
+				<thead>
 					<tr>
-						<th><i class="icon-camera-retro"></i>订单信息</th>
+						<th><i class="icon-list-ol"></i>订单编号</th>
 						<th><i class="icon-user"></i>收货人</th>
-						<th><i class="icon-flag"></i>订单金额</th>
-						<th><i class="icon-time"></i>注册时间</th>
+						<th><i class="icon-time"></i>下单时间</th>
+						<th><i class="icon-lightbulb"></i>订单状态</th>
 						<th><i class="icon-bolt"></i>操作</th>
 					</tr>
 				</thead>
+				<tbody class="user-orders-tbody">
+				</tbody>
+
+				<tfoot class="user-orders-tfoot">
+				</tfoot>
 			</table>
-			</div>
+
+
 			<!-- 用户收货地址信息 -->
 			<h3 class="page-header">用户收货地址</h3>
 		</div>
@@ -103,4 +142,21 @@
 	<%@ include file="/WEB-INF/views/includes/admin_footer.jspf"%>
 </body>
 <%@ include file="/WEB-INF/views/includes/admin_foot_scripts_links.jspf"%>
+<script type="text/javascript">
+	/** 获取用户订单信息 **/
+	$('.user-order-search-form').submit(function(e){
+		e.preventDefault();
+		var params = $(this).serialize();
+		$.get('<c:url value="/admin/user/orders" />', params, function(data){
+			if(data.pageItems.length == 0){
+				$('.user-orders-tbody').html('<tr><td colspan="5"><span class="no-message">没查到订单！</span></td></tr>');
+			}else{
+				appendUserOrders(data, '<c:url value="/admin/order/" />');
+			}			
+		});		
+	});
+	$('.user-order-search-form').submit();
+	
+	
+</script>
 </html>

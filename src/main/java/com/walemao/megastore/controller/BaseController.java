@@ -24,50 +24,50 @@ public class BaseController {
 	public Date currentDate = new Date();
 	public long INTERVAL_TIME = 24 * 3600 * 1000;
 
-	@ExceptionHandler(Exception.class)
-	public void exceptionHandler(Exception e, HttpServletRequest request, HttpServletResponse response) {
-
-		processException(e, request, response);
-
-		if (request.getRequestURI().endsWith(".json")) {
-			logger.error("{} AJAX请求发生错误, 错误信息: {}", request.getRequestURI(), e.getMessage());
-			try {
-				String message = String.format("{status:\"error\", message:\"%s\"}", e.getMessage());
-				response.getWriter().println(message);
-				response.setContentType("application/json");
-			} catch (IOException ex) {
-				logger.error("{}", ex.getMessage());
-			}
-		} else {
-			logger.error("{} HTTP请求发生错误, 错误信息: {}", request.getRequestURI(), e.getMessage());
-		}
-	}
-
-	public void processException(Exception e, HttpServletRequest request, HttpServletResponse response) {
-		@SuppressWarnings("rawtypes")
-		Class clazz = e.getClass();
-
-		if (clazz.isInstance(ConversionNotSupportedException.class)) {
-			response.setStatus(500);
-		} else if (clazz.isInstance(HttpMediaTypeNotAcceptableException.class)) {
-			response.setStatus(406);
-		} else if (clazz.isInstance(HttpMediaTypeNotSupportedException.class)) {
-			response.setStatus(415);
-		} else if (clazz.isInstance(HttpMessageNotReadableException.class)) {
-			response.setStatus(400);
-		} else if (clazz.isInstance(HttpMessageNotWritableException.class)) {
-			response.setStatus(500);
-		} else if (clazz.isInstance(HttpRequestMethodNotSupportedException.class)) {
-			response.setStatus(405);
-		} else if (clazz.isInstance(MissingServletRequestParameterException.class)) {
-			response.setStatus(400);
-		} else if (clazz.isInstance(NoSuchRequestHandlingMethodException.class)) {
-			response.setStatus(404);
-		} else if (clazz.isInstance(TypeMismatchException.class)) {
-			response.setStatus(400);
-		} else {
-			response.setStatus(500);
-		}
-	}
+//	@ExceptionHandler(Exception.class)
+//	public void exceptionHandler(Exception e, HttpServletRequest request, HttpServletResponse response) {
+//
+//		processException(e, request, response);
+//
+//		if (request.getRequestURI().endsWith(".json")) {
+//			logger.error("{} AJAX请求发生错误, 错误信息: {}", request.getRequestURI(), e.getMessage());
+//			try {
+//				String message = String.format("{status:\"error\", message:\"%s\"}", e.getMessage());
+//				response.getWriter().println(message);
+//				response.setContentType("application/json");
+//			} catch (IOException ex) {
+//				logger.error("{}", ex.getMessage());
+//			}
+//		} else {
+//			logger.error("{} HTTP请求发生错误, 错误信息: {}", request.getRequestURI(), e.getMessage());
+//		}
+//	}
+//
+//	public void processException(Exception e, HttpServletRequest request, HttpServletResponse response) {
+//		@SuppressWarnings("rawtypes")
+//		Class clazz = e.getClass();
+//
+//		if (clazz.isInstance(ConversionNotSupportedException.class)) {
+//			response.setStatus(500);
+//		} else if (clazz.isInstance(HttpMediaTypeNotAcceptableException.class)) {
+//			response.setStatus(406);
+//		} else if (clazz.isInstance(HttpMediaTypeNotSupportedException.class)) {
+//			response.setStatus(415);
+//		} else if (clazz.isInstance(HttpMessageNotReadableException.class)) {
+//			response.setStatus(400);
+//		} else if (clazz.isInstance(HttpMessageNotWritableException.class)) {
+//			response.setStatus(500);
+//		} else if (clazz.isInstance(HttpRequestMethodNotSupportedException.class)) {
+//			response.setStatus(405);
+//		} else if (clazz.isInstance(MissingServletRequestParameterException.class)) {
+//			response.setStatus(400);
+//		} else if (clazz.isInstance(NoSuchRequestHandlingMethodException.class)) {
+//			response.setStatus(404);
+//		} else if (clazz.isInstance(TypeMismatchException.class)) {
+//			response.setStatus(400);
+//		} else {
+//			response.setStatus(500);
+//		}
+//	}
 
 }

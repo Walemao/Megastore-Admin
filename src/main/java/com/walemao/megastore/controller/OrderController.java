@@ -1,6 +1,7 @@
 package com.walemao.megastore.controller;
 
 import java.util.Date;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.walemao.megastore.domain.CurrentPage;
 import com.walemao.megastore.domain.Order;
@@ -50,5 +52,23 @@ public class OrderController extends BaseController {
 		request.setAttribute("startDate", DateUtil.FormatToF(startDate));
 		request.setAttribute("endDate", DateUtil.FormatToF(endDate));
 		return "admin/order/orders";
+	}
+
+	/**
+	 * 根据用户查看订单
+	 * 
+	 * */
+	@RequestMapping(value = "/admin/user/orders", method = RequestMethod.GET)
+	public @ResponseBody CurrentPage<Order> getOrdersByUsername(
+			CurrentPage<Order> currentPage,
+			String username,
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy/MM/dd") Date startDate,
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy/MM/dd") Date endDate,
+			@RequestParam(defaultValue = "-1") int orderStatus,
+			HttpServletRequest request) {
+
+		return this.orderService.getAllOrders(startDate,
+				new Date(endDate.getTime() + INTERVAL_TIME), orderStatus,
+				username);
 	}
 }

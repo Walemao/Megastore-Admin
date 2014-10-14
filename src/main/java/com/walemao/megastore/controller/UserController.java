@@ -76,7 +76,10 @@ public class UserController extends BaseController {
 	public String getUser(@PathVariable("id") int userId,
 			HttpServletRequest request) {
 		User user = this.UserService.getUser(userId);
+		
 		request.setAttribute("user", user);
+		request.setAttribute("startDate", DateUtil.getDefaultDates().get(0));
+		request.setAttribute("endDate", DateUtil.getDefaultDates().get(1));
 		return "admin/user/user";
 	}
 

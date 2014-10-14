@@ -68,7 +68,7 @@
 								<i class="icon-camera-retro"></i>用户头像
 							</h5>
 							<a class="thumbnail" style="width: 120px;"> <img
-								src="<c:url value="/resources-admin/images/user_image.png"/>"
+								src="<c:url value="/resources/images/user_image.png"/>"
 								width="120" height="120" />
 							</a>
 						</div>

@@ -27,20 +27,20 @@
 			<form action="<c:url value="/admin/products" />" method="get"
 				class="form-inline content-search-form" role="form">
 				<div class="form-group">
-					<label class="control-label" for="orderType">订单类型：</label> <select
-						class="form-control" name="orderType" id="productType">
-						<c:forEach items="${types}" var="type">
-							<option value="<c:out value="${type.id}"></c:out>"
-								<c:if test="${type.id == productType}"> selected</c:if>><c:out
-									value="${type.name}"></c:out></option>
-						</c:forEach>
-					</select>
-				</div>
-				<div class="form-group">
 					<label class="control-label" for="productName">订单编号：</label> <input
 						type="text" class="form-control" id="productName"
 						name="productName" placeholder="输入订单编号"
 						value="<c:out value="${productName}"></c:out>">
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="status">订单状态：</label> <select
+						class="form-control" name="orderStatus" id="orderStatus">
+						<option value="-1">全部状态</option>
+						<option value="0">等待付款</option>
+						<option value="1">等待收货</option>
+						<option value="2">已完成</option>
+						<option value="3">已取消</option>
+					</select>
 				</div>
 				<div class="form-group">
 					<label class="control-label">选择时间：</label>

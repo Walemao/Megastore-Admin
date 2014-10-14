@@ -7,7 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.walemao.megastore.domain.CurrentPage;
 import com.walemao.megastore.domain.User;
+import com.walemao.megastore.domain.UserBase;
+import com.walemao.megastore.domain.UserDetail;
+import com.walemao.megastore.repository.UserBaseDao;
 import com.walemao.megastore.repository.UserDao;
+import com.walemao.megastore.repository.UserDetailDao;
 import com.walemao.megastore.service.UserService;
 
 @Service
@@ -15,11 +19,22 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	private UserBaseDao userBaseDao;
+	@Autowired
+	private UserDetailDao userDetailDao;
 
 	@Override
 	public int insert(User user) {
 		// TODO Auto-generated method stub
-		return userDao.insert(user);
+		int id = userDao.insert(user);
+		UserBase ub = new UserBase();
+		ub.setUsername(user.getUsername());
+		userBaseDao.insert(ub);
+		UserDetail ud = new UserDetail();
+		ud.setUsername(user.getUsername());
+		userDetailDao.insert(ud);
+		return id;
 	}
 
 	@Override
@@ -38,7 +53,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getUser(int userid) {
 		// TODO Auto-generated method stub
-		return userDao.getUser(userid);
+		User user = userDao.getUser(userid);
+		UserBase userbase = userBaseDao.getUserBase(user.getUsername());
+		UserDetail userdetail = userDetailDao.getUserDetail(user.getUsername());
+		user.setUserbase(userbase);
+		user.setUserdetail(userdetail);
+		return user;
 	}
 
 }

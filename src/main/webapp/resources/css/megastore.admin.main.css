@@ -705,6 +705,10 @@ span.input-group-addon {
 	border-top: none;
 }
 
+.user-base-info-table i{
+	padding-right: 5px;
+}
+
 #dash-tabs-user-base i{
 	padding-right: 5px;
 }

@@ -37,10 +37,10 @@
 						<div class="col-md-7">
 							<table class="table user-base-info-table">
 								<tr>
-									<td width="20"><label><i class="icon-user"></i>用户名：</label></td>
-									<td width="30"><c:out value="${user.username}" /></td>
-									<td width="20"><label><i class="icon-envelope"></i>邮箱：</label></td>
-									<td width="30"><c:out value="${user.email}" /></td>
+									<td width="20%"><label><i class="icon-user"></i>用户名：</label></td>
+									<td width="30%"><c:out value="${user.username}" /></td>
+									<td width="20%"><label><i class="icon-envelope"></i>邮箱：</label></td>
+									<td width="30%"><c:out value="${user.email}" /></td>
 								</tr>
 								<tr>
 									<td><label><i class="icon-phone-sign"></i>电话：</label></td>
@@ -76,43 +76,76 @@
 				</div>
 
 				<div class="tab-pane" id="dash-tabs-user-info">
-					<table class="table user-base-info-table">
+					<table class="table user-base-info-table"
+						style="width: 95%; margin-left: 15px; margin-right: 15px;">
 						<tr>
-							<td><label><i class="icon-user"></i>昵称：</label></td>
-							<td>aa心跳</td>
-							<td><label><i class="icon-user"></i>真实姓名：</label></td>
-							<td>王小帅</td>
-							<td><label><i class="icon-user"></i>性别：</label></td>
-							<td>男</td>
+							<td width="15%"><label><i class="icon-github-alt"></i>昵称：</label></td>
+							<td width="20%">aa心跳</td>
+							<td width="15%"><label><i class="icon-credit-card"></i>真实姓名：</label></td>
+							<td width="20%">王小帅</td>
+							<td width="15%"><label><i class="icon-leaf"></i>性别：</label></td>
+							<td width="15%">男</td>
 						</tr>
 
 						<tr>
-							<td><label><i class="icon-user"></i>生日：</label></td>
+							<td><label><i class="icon-gift"></i>生日：</label></td>
 							<td>1990/02/05</td>
-							<td><label><i class="icon-user"></i>是否验证邮箱：</label></td>
+							<td><label><i class="icon-envelope"></i>是否验证邮箱：</label></td>
 							<td>是</td>
-							<td><label><i class="icon-user"></i>是否验证手机：</label></td>
+							<td><label><i class="icon-phone-sign"></i>是否验证手机：</label></td>
 							<td>否</td>
 						</tr>
-						
+
 						<tr>
-							<td><label><i class="icon-user"></i>省份：</label></td>
+							<td><label><i class="icon-globe"></i>省份：</label></td>
 							<td>广东省</td>
-							<td><label><i class="icon-user"></i>城市：</label></td>
+							<td><label><i class="icon-globe"></i>城市：</label></td>
 							<td>汕头市</td>
-							<td><label><i class="icon-user"></i>地区：</label></td>
+							<td><label><i class="icon-globe"></i>地区：</label></td>
 							<td>澄海区</td>
 						</tr>
 						<tr>
-							<td><label><i class="icon-user"></i>详细地址：</label></td>
+							<td><label><i class="icon-map-marker"></i>详细地址：</label></td>
 							<td colspan="3">文冠路南侧金桂园10幢</td>
-							<td><label><i class="icon-user"></i>邮编：</label></td>
+							<td><label><i class="icon-inbox"></i>邮编：</label></td>
 							<td>519000</td>
 						</tr>
 					</table>
 				</div>
 
-				<div class="tab-pane" id="dash-tabs-user-extra">nmhyrty</div>
+				<div class="tab-pane" id="dash-tabs-user-extra">
+				   <table class="table user-base-info-table"
+						style="width: 95%; margin-left: 15px; margin-right: 15px;">
+						<tr>
+							<td width="20%"><label><i class="icon-github-alt"></i>婚姻状况：</label></td>
+							<td width="30%">aa心跳</td>
+							<td width="20%"><label><i class="icon-credit-card"></i>教育程度：</label></td>
+							<td width="30%">王小帅</td>
+						</tr>
+
+						<tr>
+							<td><label><i class="icon-gift"></i>从事职业：</label></td>
+							<td>1990/02/05</td>
+							<td><label><i class="icon-envelope"></i>所属行业：</label></td>
+							<td>是</td>
+						</tr>
+						
+						<tr>
+							<td><label><i class="icon-globe"></i>月均收入：</label></td>
+							<td colspan="3">sdfsdfsdfs</td>
+						</tr>
+
+						<tr>
+							<td><label><i class="icon-globe"></i>兴趣爱好：</label></td>
+							<td colspan="3">sdfsdfsdfs</td>
+						</tr>
+						
+						<tr>
+							<td><label><i class="icon-map-marker"></i>自我介绍：</label></td>
+							<td colspan="3">sdfsdfsdf</td>
+						</tr>
+					</table>
+				</div>
 			</div>
 
 			<!-- 用户订单信息 -->

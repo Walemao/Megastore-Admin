@@ -2,6 +2,7 @@ package com.walemao.megastore.controller;
 
 import java.util.Date;
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.walemao.megastore.domain.CurrentPage;
 import com.walemao.megastore.domain.Order;
-import com.walemao.megastore.domain.User;
 import com.walemao.megastore.service.OrderService;
 import com.walemao.megastore.util.DateUtil;
 

@@ -1,8 +1,8 @@
 package com.walemao.megastore.controller;
 
 import java.util.Date;
+
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.walemao.megastore.domain.CurrentPage;
-import com.walemao.megastore.domain.ProductBase;
 import com.walemao.megastore.domain.User;
 import com.walemao.megastore.service.UserService;
 import com.walemao.megastore.util.DateUtil;

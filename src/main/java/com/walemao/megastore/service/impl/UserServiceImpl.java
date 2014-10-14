@@ -27,14 +27,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int insert(User user) {
 		// TODO Auto-generated method stub
-		int id = userDao.insert(user);
-		UserBase ub = new UserBase();
-		ub.setUsername(user.getUsername());
-		userBaseDao.insert(ub);
-		UserDetail ud = new UserDetail();
-		ud.setUsername(user.getUsername());
-		userDetailDao.insert(ud);
-		return id;
+		return userDao.insert(user);
 	}
 
 	@Override
